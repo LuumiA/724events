@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 
 import "./style.scss";
@@ -7,7 +8,14 @@ export const FIELD_TYPES = {
   TEXTAREA: 2,
 };
 
-const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
+const Field = ({
+  type = FIELD_TYPES.INPUT_TEXT,
+  label,
+  name,
+  placeholder,
+  value,
+  onChange,
+}) => {
   let component;
   switch (type) {
     case FIELD_TYPES.INPUT_TEXT:
@@ -16,12 +24,21 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
           type="text"
           name={name}
           placeholder={placeholder}
+          value={value}
+          onChange={onChange}
           data-testid="field-testid"
         />
       );
       break;
     case FIELD_TYPES.TEXTAREA:
-      component = <textarea name={name} data-testid="field-testid" />;
+      component = (
+        <textarea
+          name={name}
+          data-testid="field-testid"
+          value={value}
+          onChange={onChange}
+        />
+      );
       break;
     default:
       component = (
@@ -29,6 +46,8 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
           type="text"
           name={name}
           placeholder={placeholder}
+          value={value}
+          onChange={onChange}
           data-testid="field-testid"
         />
       );
@@ -46,12 +65,16 @@ Field.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  value: PropTypes.string.isRequired, // Ajout de la prop value
+  onChange: PropTypes.func.isRequired, // Ajout de la prop onChange
 };
- Field.defaultProps = {
-   label: "",
-   placeholder: "",
-   type: FIELD_TYPES.INPUT_TEXT,
-   name: "field-name",
- }
+Field.defaultProps = {
+  label: "",
+  placeholder: "",
+  type: FIELD_TYPES.INPUT_TEXT,
+  name: "field-name",
+  value: "",
+  onChange: () => null,
+};
 
 export default Field;
