@@ -13,7 +13,6 @@ const Select = ({
   titleEmpty,
   label,
   type = "normal",
-  value,
 }) => {
   const [valueChange, setValueChange] = useState("");
   const [collapsed, setCollapsed] = useState(true);
@@ -95,7 +94,6 @@ Select.propTypes = {
   titleEmpty: PropTypes.bool,
   label: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string,
 };
 
 Select.defaultProps = {
